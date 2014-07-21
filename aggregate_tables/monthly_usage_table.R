@@ -24,7 +24,7 @@ create_monthly_tables <- function (domain_table, interaction_table, output_dir) 
     
     # export data
     dir.create(file.path(mainDir, domain_names[i]))
-    setwd(file.path(output_dir, subDir0,fsep = .Platform$file.sep))
+    setwd(file.path(output_dir, domain_names[i],fsep = .Platform$file.sep))
     tableOut(data, 1)
     tableOut(y, 2)
     tableOut(user_10, 3)
