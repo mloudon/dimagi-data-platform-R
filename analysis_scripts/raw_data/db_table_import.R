@@ -26,11 +26,17 @@ form_table <- tbl(db, "form")
 form_table <- get_data_source(db, "form", 1000) #limited number of forms
 form_table <- collect(form_table)
 
+formdef <- get_data_source(db, "formdef", 1000)
+formdef <- collect(formdef)
+
+visit <- tbl(db, "visit")
+visit <- collect(visit)
+visit <- get_data_source(db, "visit", 1000)
 app <- tbl(db, "application")
 device_log <- tbl(db, "device_log")
 domain <- tbl(db, "domain")
-users <- tbl(db, "users") 
 
+users <- tbl(db, "users") 
 #Get table for user_type (mobile, web, superuser, etc.)
 #This function has been defined in data_sources.R
 user_type <- get_user_type_table(db)
@@ -38,20 +44,10 @@ user_type <- get_user_type_table(db)
 #Get visit_detail data source
 #First run functions in data_sources.R
 visit_detail <- get_visit_detail(db, 1000)
-#------------------------------------------------------------------------#
-#Calculations on DB tables
-#------------------------------------------------------------------------#
 
-#Use collect() to bring these results into a dataframe
-# Count forms per app_id
-sum_forms <- 
-    form_table %.% 
-    group_by(app_id) %.%
-    summarise(form_total = count(form_id))
-
-summary(sum_forms)
-dim(sum_forms)
-head(sum_forms$select)
+#Get case tables
+cases <- tbl(db, "cases")
+cases <- collect(cases)
 
 
 
